@@ -30,4 +30,4 @@ TODO: write
 
 ## License
 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/unblee/pick/blob/master/LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg?longCache=true&style=flat-square)](https://github.com/unblee/pick/blob/master/LICENSE)
