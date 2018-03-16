@@ -19,6 +19,10 @@ func TestSplitItems(t *testing.T) {
 			input: "A\nB\nC\n",
 			want:  []string{"A", "B", "C"},
 		},
+		{
+			input: "\n\n\nA\nB\n\n\nC\n\n",
+			want:  []string{"A", "B", "C"},
+		},
 	}
 
 	for _, test := range tests {
@@ -29,7 +33,7 @@ func TestSplitItems(t *testing.T) {
 			t.Fatal(err)
 		}
 		if !reflect.DeepEqual(test.want, got) {
-			t.Errorf("got: %v, want: %v", got, test.want)
+			t.Errorf("input: %v, got: %v, want: %v", test.input, got, test.want)
 		}
 		buf.Reset()
 	}

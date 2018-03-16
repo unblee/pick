@@ -4,6 +4,7 @@ import (
 	"errors"
 	"io"
 	"io/ioutil"
+	"regexp"
 	"strings"
 )
 
@@ -23,6 +24,8 @@ func New(stdin io.Reader, stdout, stderr io.Writer) *Pick {
 func (p *Pick) Exec() {
 }
 
+var dupNLReg = regexp.MustCompile(`\n{1,}`)
+
 func (p *Pick) splitItems() (items []string, err error) {
 	b, err := ioutil.ReadAll(p.stdin)
 	if err != nil {
@@ -34,8 +37,9 @@ func (p *Pick) splitItems() (items []string, err error) {
 		return
 	}
 
-	s := strings.TrimRight(string(b), "\n") // trim trailing "\n"
-	items = strings.Split(s, "\n")
+	replaced := dupNLReg.ReplaceAllString(string(b), "\n")
+	trimmed := strings.Trim(replaced, "\n") // trim unnecessary "\n"
+	items = strings.Split(trimmed, "\n")
 
 	return
 }
