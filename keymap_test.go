@@ -17,7 +17,7 @@ func TestKeyGroup_in(t *testing.T) {
 		},
 		{
 			keynames: []string{"tab", "j"},
-			key:      keymap["a"],
+			key:      keymap["q"],
 			want:     false,
 		},
 	}
