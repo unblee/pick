@@ -1,5 +1,9 @@
 package pick
 
+import (
+	"errors"
+)
+
 var keymap = map[string]rune{
 	"tab":     9,
 	"enter":   13,
@@ -13,4 +17,27 @@ var keymap = map[string]rune{
 	"j":       106,
 	"k":       107,
 	"q":       113,
+}
+
+type keymapGroup []rune
+
+func newKeymapGroup(keynames ...string) (keymapGroup, error) {
+	group := keymapGroup{}
+	for _, keyname := range keynames {
+		key, existing := keymap[keyname]
+		if !existing {
+			return keymapGroup{}, errors.New("undefined key")
+		}
+		group = append(group, key)
+	}
+	return group, nil
+}
+
+func (kg keymapGroup) in(key rune) bool {
+	for _, k := range kg {
+		if key == k {
+			return true
+		}
+	}
+	return false
 }
