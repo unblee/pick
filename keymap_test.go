@@ -33,3 +33,30 @@ func TestKeyGroup_in(t *testing.T) {
 		}
 	}
 }
+
+func TestNewKeyGroupErrorComposer_error(t *testing.T) {
+	tests := []struct {
+		keynames []string
+		want     bool
+	}{
+		{
+			keynames: []string{"enter", "space"},
+			want:     true,
+		},
+		{
+			keynames: []string{"notExisting", "space"},
+			want:     false,
+		},
+	}
+
+	for _, test := range tests {
+		kgec := newKeymapGroupErrorComposer{}
+		for _, name := range test.keynames {
+			_ = kgec.newKeymapGroup(name)
+		}
+		got := kgec.error() == nil
+		if got != test.want {
+			t.Errorf("keynames: %v, got: %v, want: %v", test.keynames, got, test.want)
+		}
+	}
+}

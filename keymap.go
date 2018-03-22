@@ -41,3 +41,20 @@ func (kg keymapGroup) in(key rune) bool {
 	}
 	return false
 }
+
+type newKeymapGroupErrorComposer struct {
+	err error
+}
+
+func (e *newKeymapGroupErrorComposer) newKeymapGroup(keynames ...string) keymapGroup {
+	if e.err != nil {
+		return keymapGroup{}
+	}
+	var kg keymapGroup
+	kg, e.err = newKeymapGroup(keynames...)
+	return kg
+}
+
+func (e *newKeymapGroupErrorComposer) error() error {
+	return e.err
+}
