@@ -38,3 +38,27 @@ func TestPick_splitStdin(t *testing.T) {
 		buf.Reset()
 	}
 }
+
+func TestPick_drawList(t *testing.T) {
+	tests := []struct {
+		items     []string
+		cursorPos int
+		want      string
+	}{
+		{
+			items:     []string{"A", "B", "C"},
+			cursorPos: 0,
+			want:      color("A", fgcolor["black"], fgcolor["black"], bgcolor["white"], bgcolor["white"]) + "\nB\nC\n",
+		},
+	}
+
+	for _, test := range tests {
+		stdout := new(bytes.Buffer)
+		pick := New(nil, stdout, nil)
+		pick.drawList(test.items, test.cursorPos)
+		got := stdout.String()
+		if test.want != got {
+			t.Errorf("items: %v, cursorPos: %v, got: %v, want: %v", test.items, test.cursorPos, got, test.want)
+		}
+	}
+}

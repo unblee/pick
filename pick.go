@@ -2,6 +2,7 @@ package pick
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"regexp"
@@ -42,4 +43,21 @@ func (p *Pick) splitStdin() (items []string, err error) {
 	items = strings.Split(trimmed, "\n")
 
 	return
+}
+
+func (p *Pick) drawList(items []string, cursorPos int) {
+	for i, item := range items {
+		if i == cursorPos {
+			fmt.Fprint(p.stdout, color(
+				item,
+				fgcolor["black"],
+				fgcolor["black"],
+				bgcolor["white"],
+				bgcolor["white"],
+			))
+		} else {
+			fmt.Fprint(p.stdout, item)
+		}
+		fmt.Fprint(p.stdout, "\n")
+	}
 }
