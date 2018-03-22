@@ -26,7 +26,7 @@ func (p *Pick) Exec() {
 
 var dupNLReg = regexp.MustCompile(`\n{1,}`)
 
-func (p *Pick) splitItems() (items []string, err error) {
+func (p *Pick) splitStdin() (items []string, err error) {
 	b, err := ioutil.ReadAll(p.stdin)
 	if err != nil {
 		return
