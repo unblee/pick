@@ -22,13 +22,10 @@ func New(stdin io.Reader, stdout, stderr io.Writer) *Pick {
 	}
 }
 
-func (p *Pick) Exec() {
-}
-
 var dupNLReg = regexp.MustCompile(`\n{1,}`)
 
-func (p *Pick) splitStdin() (items []string, err error) {
-	b, err := ioutil.ReadAll(p.stdin)
+func splitStdin(stdin io.Reader) (items []string, err error) {
+	b, err := ioutil.ReadAll(stdin)
 	if err != nil {
 		return
 	}
@@ -44,6 +41,10 @@ func (p *Pick) splitStdin() (items []string, err error) {
 
 	return
 }
+
+func (p *Pick) Exec() {
+}
+
 
 func (p *Pick) drawList(items []string, cursorPos int) {
 	for i, item := range items {

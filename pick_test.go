@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestPick_splitStdin(t *testing.T) {
+func TestSplitStdin(t *testing.T) {
 	tests := []struct {
 		input string
 		want  []string
@@ -27,8 +27,7 @@ func TestPick_splitStdin(t *testing.T) {
 
 	for _, test := range tests {
 		buf := bytes.NewBufferString(test.input)
-		pick := New(buf, nil, nil)
-		got, err := pick.splitStdin()
+		got, err := splitStdin(buf)
 		if err != nil {
 			t.Fatal(err)
 		}
